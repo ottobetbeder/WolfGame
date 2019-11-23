@@ -126,5 +126,5 @@ MonoBehaviour:
   startDashTime: 0.1
   DashEffect: {fileID: 7782304015478746751, guid: 1181b32fbcfbdf244bde5db367d80130,
     type: 3}
-  speed: 3
-  cooldownTime: 3
+  movementSpeed: 5
+  cooldownTime: 1.5

@@ -20,6 +20,7 @@ public class CoolDownHability
         }
     }
 
+    //this enable the cooldown, use it when you want to start a cooldown, like when you use an ability
     public void SetCooldown()
     {
         nextFireTime = Time.time + cooldownTime;
