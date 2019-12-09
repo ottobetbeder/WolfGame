@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] private Transform playerTransform;
+    public Transform playerTransform;
     private Vector3 cameraOffset;
 
     [Range(0.01f,1.0f)]
     [SerializeField] private float smothFactor = 0.5f;
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -21,8 +19,11 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Vector3 newPos = playerTransform.position + cameraOffset;
-
-        transform.position = Vector3.Slerp(transform.position, newPos, smothFactor);
+        //the player can be null when it die
+        if (playerTransform != null) 
+        {
+            Vector3 newPos = playerTransform.position + cameraOffset;
+            transform.position = Vector3.Slerp(transform.position, newPos, smothFactor);
+        }
     }
 }
