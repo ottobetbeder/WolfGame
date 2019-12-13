@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
             rb.velocity = movement;
 
             //Dash
-            if (Input.GetKeyDown(KeyCode.Space) && dashCooldown.IsCoolDownCompleted)
+            if (Input.GetKeyDown(KeyCode.Space) && dashCooldown.IsCoolDownCompleted && (moveHorizontal != 0 || moveVertical != 0))
             {
                 isDashing = true;
                 Instantiate(DashEffect, transform.position, Quaternion.identity);
@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
             {
                 //is dashing
                 dashTime -= Time.deltaTime;
-                Vector3 movement = new Vector3(moveHorizontal * dashSpeed, 0.0f, moveVertical * dashSpeed);
+                Vector3 movement = new Vector3(System.Math.Sign(moveHorizontal) * dashSpeed, 0.0f, System.Math.Sign(moveVertical) * dashSpeed);
                 rb.velocity = movement;
             }
         }
