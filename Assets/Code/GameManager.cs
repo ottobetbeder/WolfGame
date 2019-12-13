@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     [SerializeField] private Player player;
     [SerializeField] private CameraMovement mainCamera;
@@ -24,11 +24,16 @@ public class GameController : MonoBehaviour
 
     private IEnumerator RespawnPlayer()
     {
-        yield return new WaitForSeconds(respawnTime);//see the time
-        Player NewPlayer = Instantiate<Player>(playerPrefab, checkpoint);
+        yield return new WaitForSeconds(respawnTime);
+        Player NewPlayer = Instantiate<Player>(playerPrefab, checkpoint.position, Quaternion.identity);
         mainCamera.playerTransform = NewPlayer.gameObject.transform;
 
         player = NewPlayer;
         player.Died += OnPlayerDie;
+    }
+
+    public void SetActiveCheckpoint(Transform transform)
+    {
+        checkpoint = transform;
     }
 }
