@@ -42,16 +42,20 @@ public class Player : MonoBehaviour
         {
             moveHorizontal = Input.GetAxis("Horizontal");
             moveVertical = Input.GetAxis("Vertical");
-
             Vector3 movement = new Vector3(moveHorizontal * movementSpeed, 0.0f, moveVertical * movementSpeed);
-            rb.velocity = movement;
 
-            //Dash
-            if (Input.GetKeyDown(KeyCode.Space) && dashCooldown.IsCoolDownCompleted && (moveHorizontal != 0 || moveVertical != 0))
-            {
-                isDashing = true;
-                Instantiate(DashEffect, transform.position, Quaternion.identity);
-                dashCooldown.SetCooldown();
+            if (movement != Vector3.zero)
+            { 
+                rb.velocity = movement;
+                rb.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement.normalized), 0.2f);
+
+                //Dash
+                if (Input.GetKeyDown(KeyCode.Space) && dashCooldown.IsCoolDownCompleted)
+                {
+                    isDashing = true;
+                    Instantiate(DashEffect, transform.position, Quaternion.identity);
+                    dashCooldown.SetCooldown();
+                }
             }
         }
         else
