@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CameraMovement mainCamera;
     [SerializeField] private Transform checkpoint;
     [SerializeField] private float respawnTime = 1;
-
     [SerializeField] private Player playerPrefab;
 
     private void Start()

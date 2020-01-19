@@ -310,11 +310,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f17b604e2587df4e99c6d1cfb361003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 25
-  startDashTime: 0.33
+  dashSpeed: 18
+  startDashTime: 0.3
   DashEffect: {fileID: 7782304015478746751, guid: 1181b32fbcfbdf244bde5db367d80130,
     type: 3}
-  movementSpeed: 5
+  movementSpeed: 4.8
   cooldownTime: 1.5
 --- !u!1 &4726268010795605933
 GameObject:

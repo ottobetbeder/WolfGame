@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,11 +16,11 @@ public class Player : MonoBehaviour
     private CoolDownHability dashCooldown;
     private int lifes = TOTAL_LIFE; //three hearts part in middle
     [SerializeField] private GameObject DashEffect;
-    [SerializeField] private float movementSpeed = 6;
+    [SerializeField] private float movementSpeed = 4.8f;
     [SerializeField] private float cooldownTime = 1;
 
-    public System.Action Died;
-    public System.Action<int> DamageTaken;
+    public Action Died;
+    public Action<int> DamageTaken;
 
     public bool IsDashing
     {
