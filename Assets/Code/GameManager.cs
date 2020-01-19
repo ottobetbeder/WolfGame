@@ -9,10 +9,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform checkpoint;
     [SerializeField] private float respawnTime = 1;
     [SerializeField] private Player playerPrefab;
+    [SerializeField] private WinLevelTrigger Win;
+    [SerializeField] private GameObject CompleteLevelUI;
 
     private void Start()
     {
-        player.Died += OnPlayerDie; 
+        player.Died += OnPlayerDie;
+        Win.PlayerWon += ShowWinScreen;
     }
 
     private void OnPlayerDie()
@@ -34,5 +37,16 @@ public class GameManager : MonoBehaviour
     public void SetActiveCheckpoint(Transform transform)
     {
         checkpoint = transform;
+    }
+
+    private void ShowWinScreen()
+    {
+        Win.PlayerWon -= ShowWinScreen;
+        CompleteLevelUI.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        Application.LoadLevel(Application.loadedLevel);
     }
 }
