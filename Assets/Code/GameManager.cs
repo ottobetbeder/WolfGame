@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static bool GamePaused = false;
     [SerializeField] private Player player;
     [SerializeField] private CameraMovement mainCamera;
     [SerializeField] private Transform checkpoint;
@@ -11,11 +12,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player playerPrefab;
     [SerializeField] private WinLevelTrigger Win;
     [SerializeField] private GameObject CompleteLevelUI;
+    [SerializeField] private GameObject PauseMenu;
+
 
     private void Start()
     {
         player.Died += OnPlayerDie;
         Win.PlayerWon += ShowWinScreen;
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            ShowPauseMenu();
+        }
     }
 
     private void OnPlayerDie()
@@ -41,12 +52,24 @@ public class GameManager : MonoBehaviour
 
     private void ShowWinScreen()
     {
+        GamePaused = !GamePaused;
         Win.PlayerWon -= ShowWinScreen;
         CompleteLevelUI.SetActive(true);
+    }
+
+    public void ShowPauseMenu()
+    {
+        GamePaused = !GamePaused;
+        PauseMenu.SetActive(GamePaused);
     }
 
     public void Restart()
     {
         Application.LoadLevel(Application.loadedLevel);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

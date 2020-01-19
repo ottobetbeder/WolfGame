@@ -57,7 +57,7 @@ public class Patrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ShouldPatrol)
+        if (ShouldPatrol && !GameManager.GamePaused)
         {
             if (MoveSpots.Count == 0)
             {

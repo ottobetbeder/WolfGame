@@ -19,7 +19,7 @@ public class FollowGameobject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ToFollow != null && Vector3.Distance(transform.position, ToFollow.position) >= MinDist)
+        if (ToFollow != null && Vector3.Distance(transform.position, ToFollow.position) >= MinDist && !GameManager.GamePaused)
         {
             transform.LookAt(ToFollow);// try to make this smoother
 

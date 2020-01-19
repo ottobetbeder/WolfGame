@@ -39,41 +39,44 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isDashing)
+        if (!GameManager.GamePaused)
         {
-            moveHorizontal = Input.GetAxis("Horizontal");
-            moveVertical = Input.GetAxis("Vertical");
-            Vector3 movement = new Vector3(moveHorizontal * movementSpeed, 0.0f, moveVertical * movementSpeed);
-
-            if (movement != Vector3.zero)
-            { 
-                rb.velocity = movement;
-                rb.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement.normalized), 0.2f);
-
-                //Dash
-                if (Input.GetKeyDown(KeyCode.Space) && dashCooldown.IsCoolDownCompleted)
-                {
-                    isDashing = true;
-                    Instantiate(DashEffect, transform.position, Quaternion.identity);
-                    dashCooldown.SetCooldown();
-                }
-            }
-        }
-        else
-        {
-            if (dashTime < 0)
+            if (!isDashing)
             {
-                //the dash has just finished
-                isDashing = false;
-                dashTime = startDashTime;
-                rb.velocity = Vector3.zero;
+                moveHorizontal = Input.GetAxis("Horizontal");
+                moveVertical = Input.GetAxis("Vertical");
+                Vector3 movement = new Vector3(moveHorizontal * movementSpeed, 0.0f, moveVertical * movementSpeed);
+
+                if (movement != Vector3.zero)
+                {
+                    rb.velocity = movement;
+                    rb.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement.normalized), 0.2f);
+
+                    //Dash
+                    if (Input.GetKeyDown(KeyCode.Space) && dashCooldown.IsCoolDownCompleted)
+                    {
+                        isDashing = true;
+                        Instantiate(DashEffect, transform.position, Quaternion.identity);
+                        dashCooldown.SetCooldown();
+                    }
+                }
             }
             else
             {
-                //is dashing
-                dashTime -= Time.deltaTime;
-                Vector3 movement = new Vector3(System.Math.Sign(moveHorizontal) * dashSpeed, 0.0f, System.Math.Sign(moveVertical) * dashSpeed);
-                rb.velocity = movement;
+                if (dashTime < 0)
+                {
+                    //the dash has just finished
+                    isDashing = false;
+                    dashTime = startDashTime;
+                    rb.velocity = Vector3.zero;
+                }
+                else
+                {
+                    //is dashing
+                    dashTime -= Time.deltaTime;
+                    Vector3 movement = new Vector3(System.Math.Sign(moveHorizontal) * dashSpeed, 0.0f, System.Math.Sign(moveVertical) * dashSpeed);
+                    rb.velocity = movement;
+                }
             }
         }
     }
